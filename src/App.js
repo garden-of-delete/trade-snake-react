@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import { Grid } from '@material-ui/core';
+import { Button, Grid, List, ListItem } from '@material-ui/core';
 //import test_trades_json from './static/test_trades.json';
 import axios from 'axios';
 import { orderBy } from 'lodash';
@@ -20,19 +20,42 @@ function App() {
     <div className="App">
       <Grid container>
         <Grid item xs={4}>
-          Test text
+          <form>
+            <label>
+              Location: <input type="text" name="name" />
+            </label>
+          </form>
+          <form>
+            <label>
+              Capacity (m3): <input type="text" name="name" />
+            </label>
+          </form>
+          <Button variant="contained" style={{margin: '8px', backgroundColor: 'lightblue'}}>
+            Filter Trades
+          </Button>
         </Grid>
         <Grid item>
+          <List style={{maxHeight: '480px', overflow: "auto"}}>
           {current_trades && current_trades.map((t) => {
             return(
-              <Trade 
+              <ListItem style={{border: '1px solid black'}}>
+                <Trade 
                 key={t.order_id}
                 duration={t.duration}
                 price={t.price}
                 location_id={t.location_id}
                 min_volume={t.min_volume}/>
+              </ListItem>
             )
           })}
+          </List>
+          <Button variant="contained" style={{margin: '8px', backgroundColor: 'lightgreen'}}>
+            Accept
+          </Button>
+          <Button variant="contained" style={{margin: '8px', backgroundColor: 'red'}}>
+            Abandon
+          </Button>
+
         </Grid>
       </Grid>
     </div>
